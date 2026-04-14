@@ -1,82 +1,146 @@
-# VOX — Voice Operated eXecutive
+# Vox — Voice-Powered AI Assistant
 
-> An AI-powered voice assistant that executes tasks instantly and falls back to Claude AI for everything else.
+Vox is a voice-first AI assistant that allows users to interact with an AI model using speech instead of typing. It captures voice input, processes it, and returns intelligent responses in real time.
 
----
-
-## What VOX Can Do
-
-**Built-in tasks (instant, no AI needed):**
-- Set timers ("set a timer for 10 minutes")
-- Do math ("calculate 250 divided by 7")
-- Tell time and date
-- Search Google ("search for best laptops 2025")
-- Open YouTube ("play lo-fi music on YouTube")
-- Check weather ("weather in Mumbai")
-- Open Spotify ("play jazz on Spotify")
-- Navigate maps ("navigate to Connaught Place")
-- Look up Wikipedia ("tell me about Nikola Tesla")
-- Convert currency ("100 USD to INR")
-- Translate text ("translate hello in Hindi")
-- Open Gmail
-- Show news headlines
-
-**Claude AI fallback:** Anything not matched above is sent to Claude AI and answered conversationally.
+The goal of this project is to eliminate friction in human-computer interaction by making conversations with AI feel natural, fast, and effortless.
 
 ---
 
-## Deploy to Vercel (5 minutes)
+## Features
 
-### Step 1 — Get your API key
-1. Go to https://console.anthropic.com
-2. Create an account (free tier available)
-3. Go to **API Keys** → click **Create Key**
-4. Copy the key (starts with `sk-ant-...`)
+### Voice Input (Speech Recognition)
 
-### Step 2 — Push to GitHub
-1. Create a new repo on https://github.com/new
-2. Upload all files from this folder (drag & drop works)
-3. Commit
+Users can speak directly to the app instead of typing. The browser captures audio input and converts it into text using built-in speech recognition.
 
-### Step 3 — Deploy on Vercel
-1. Go to https://vercel.com → **Add New Project**
-2. Import your GitHub repo
-3. Click **Deploy** (default settings work)
+### AI-Powered Responses
 
-### Step 4 — Add your API key
-1. In Vercel → your project → **Settings** → **Environment Variables**
-2. Add:
-   - **Name:** `ANTHROPIC_API_KEY`
-   - **Value:** your key from Step 1
-3. Click **Save**
-4. Go to **Deployments** → click **Redeploy** (top right → Redeploy)
+The transcribed text is sent to an AI model via API, which processes the request and returns a meaningful response.
 
-### Done!
-Your VOX instance is live at `https://your-project.vercel.app`
+### Real-Time Interaction
+
+The system responds quickly, creating a smooth conversational experience.
+
+### Simple Web Interface
+
+A clean frontend built using HTML, CSS, and JavaScript ensures ease of use without unnecessary complexity.
 
 ---
 
-## Run Locally
+## Tech Stack
+
+### Frontend
+
+* HTML
+* CSS
+* JavaScript (Vanilla JS)
+* Browser Speech Recognition API
+
+### Backend
+
+* Node.js (Serverless function)
+* API route handling using Vercel
+
+### AI Integration
+
+* Groq API (`llama3-8b-8192` model)
+
+---
+
+## Project Structure
 
 ```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# In the project root
-vercel dev
+vox/
+│── api/
+│   └── chat.js        # Serverless API for handling AI requests
+│
+│── public/
+│   ├── index.html     # Main UI
+│   ├── script.js      # Frontend logic (voice + API calls)
+│   ├── style.css      # Styling
+│   └── bg.png         # Background asset
+│
+│── .gitignore         # Ignored files
+│── package.json       # Project config
+│── vercel.json        # Deployment config
+│── README.md          # Documentation
 ```
-
-Then set your API key locally:
-```bash
-# Create .env.local file
-echo "ANTHROPIC_API_KEY=sk-ant-your-key-here" > .env.local
-```
-
-Open `http://localhost:3000` in Chrome or Edge.
 
 ---
 
-## Notes
-- Use **Google Chrome** or **Microsoft Edge** — Firefox does not support Web Speech API
-- Must be on HTTPS (Vercel handles this automatically) or localhost
-- The API key is **never** exposed to the browser — it only lives in Vercel's server environment
+## How It Works (Step-by-Step)
+
+1. The user speaks into the microphone
+2. The browser converts speech to text
+3. The text is sent to the backend (`/api/chat`)
+4. Backend forwards the request to the AI model
+5. AI processes and generates a response
+6. Response is sent back and displayed to the user
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the root directory:
+
+```bash
+GROQ_API_KEY=your_api_key_here
+```
+
+Never push this file to GitHub.
+
+---
+
+## Running Locally
+
+```bash
+npm install
+npm run dev
+```
+
+Then open:
+
+```
+http://localhost:3000
+```
+
+---
+
+## Deployment (Vercel)
+
+1. Push project to GitHub
+2. Go to Vercel
+3. Import repository
+4. Add environment variable:
+
+   * `GROQ_API_KEY`
+5. Deploy
+
+---
+
+## Known Limitations
+
+* Requires microphone permissions
+* Speech recognition depends on browser support (best on Chrome)
+* No conversation memory (stateless responses)
+
+---
+
+## Future Improvements
+
+* Add conversation history
+* Improve UI/UX
+* Add voice output (text-to-speech)
+* Support multiple AI models
+* Add authentication
+
+---
+
+## Author
+
+Built as a personal project to explore voice interfaces and AI integration.
+
+---
+
+## License
+
+This project is open-source and available under the MIT License.
