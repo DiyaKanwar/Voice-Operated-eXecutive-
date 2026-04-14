@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VOX — Voice Operated eXecutive</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <div class="bg-overlay"></div>
+  <div class="scanlines"></div>
+
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <div class="status-bar">
+    <span class="status-item"><i class="fa fa-circle status-dot pulse"></i> SYSTEM ONLINE</span>
+    <span class="status-item brand">V O X</span>
+    <span class="status-item" id="clock">--:--:--</span>
+  </div>
+
+  <div class="container">
+    <div class="ring-wrapper" id="ring-wrapper">
+      <div class="ring ring1"></div>
+      <div class="ring ring2"></div>
+      <div class="ring ring3"></div>
+      <div class="mic-core" id="mic-core">
+        <i class="fa fa-microphone" id="mic-icon"></i>
+      </div>
+    </div>
+
+    <h1 class="title">V O X</h1>
+    <p class="description" id="status-text">Voice Operated eXecutive</p>
+
+    <button class="listen-btn" id="listen-btn">
+      <i class="fa fa-microphone" id="btn-icon"></i>
+      <span id="btn-label">Activate</span>
+    </button>
+
+    <div class="waveform" id="waveform">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+  </div>
+
+  <div class="subtitle-panel" id="subtitle-panel">
+    <div class="subtitle-label">RESPONSE</div>
+    <div class="subtitle" id="subtitle"></div>
+  </div>
+
+  <div class="data-strip">
+    <span>VOICE RECOGNITION v3.0</span>
+    <span class="sep">|</span>
+    <span>CLAUDE AI ENGINE</span>
+    <span class="sep">|</span>
+    <span id="mic-status">MIC: STANDBY</span>
+  </div>
+
+</body>
+</html>

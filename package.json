@@ -1,0 +1,12 @@
+{
+  "name": "vox-voice-operative-executive",
+  "version": "1.0.0",
+  "description": "VOX — Voice Operated eXecutive. An AI-powered voice assistant with task execution and Claude AI brain.",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
