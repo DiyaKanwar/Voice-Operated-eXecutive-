@@ -153,19 +153,34 @@ function speakAndShow(text, taskLabel = null, autohide = true) {
 
 // ─── Claude API ───────────────────────────────────────────────────────────────
 async function askClaude(message) {
-  debugLog(`→ Claude: "${message}"`);
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message })
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.error || `Server error ${res.status}`);
+  debugLog(`→ Groq AI: "${message}"`);
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message }),
+      timeout: 30000
+    });
+    
+    if (!res.ok) {
+      debugLog(`API returned ${res.status}`);
+      const text = await res.text();
+      try {
+        const err = JSON.parse(text);
+        throw new Error(err.error || `Server error ${res.status}`);
+      } catch {
+        throw new Error(`Server error ${res.status}: ${text}`);
+      }
+    }
+    
+    const data = await res.json();
+    if (!data.reply) throw new Error('Empty response from API');
+    debugLog(`← Reply: "${data.reply}"`);
+    return data.reply;
+  } catch (error) {
+    debugLog(`API error: ${error.message}`);
+    throw error;
   }
-  const data = await res.json();
-  if (!data.reply) throw new Error('Empty response');
-  return data.reply;
 }
 
 // ─── TASK ENGINE ──────────────────────────────────────────────────────────────
@@ -434,7 +449,7 @@ async function handleCommand(raw) {
   }
 
   // 2. Fallback to Claude AI
-  debugLog('No task match → Claude AI');
+  debugLog('No task match → Groq AI');
   setState('thinking');
   showSubtitle('Thinking…', null, false);
 
@@ -442,12 +457,12 @@ async function handleCommand(raw) {
     const reply = await askClaude(raw);
     speakAndShow(reply, 'AI');
   } catch (err) {
-    debugLog(`Claude error: ${err.message}`);
+    debugLog(`Groq error: ${err.message}`);
     let msg;
     if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
       msg = 'Network error. Please check your connection.';
     } else if (err.message.toLowerCase().includes('api key') || err.message.includes('401')) {
-    msg = 'API key not configured. Please set GROQ_API_KEY in your environment variables.';
+      msg = 'API key not configured. Please set GROQ_API_KEY in your environment.';
     } else if (err.message.includes('429')) {
       msg = 'Rate limit reached. Please wait a moment and try again.';
     } else {
