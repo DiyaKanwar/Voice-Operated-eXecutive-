@@ -1,31 +1,18 @@
-# VOX — Voice Operated eXecutive
+# Vox — Voice-Powered AI Assistant
 
 > An AI-powered voice assistant that executes tasks instantly and falls back to Groq API for everything else.
 
 ---
 
-## What VOX Can Do
+## Features
 
-**Built-in tasks (instant, no AI needed):**
-- Set timers ("set a timer for 10 minutes")
-- Do math ("calculate 250 divided by 7")
-- Tell time and date
-- Search Google ("search for best laptops 2025")
-- Open YouTube ("play lo-fi music on YouTube")
-- Check weather ("weather in Mumbai")
-- Open Spotify ("play jazz on Spotify")
-- Navigate maps ("navigate to Connaught Place")
-- Look up Wikipedia ("tell me about Nikola Tesla")
-- Convert currency ("100 USD to INR")
-- Translate text ("translate hello in Hindi")
-- Open Gmail
-- Show news headlines
+### Voice Input (Speech Recognition)
 
 **Groq AI fallback:** Anything not matched above is sent to Groq AI and answered conversationally.
 
 ---
 
-## Deploy to Vercel (5 minutes)
+## Tech Stack
 
 ### Step 1 — Get your API key
 1. Go to https://console.groq.com
@@ -33,15 +20,12 @@
 3. Go to **API Keys** → click **Create API Key**
 4. Copy the key (starts with `gsk_...`)
 
-### Step 2 — Push to GitHub
-1. Create a new repo on https://github.com/new
-2. Upload all files from this folder (drag & drop works)
-3. Commit
+* HTML
+* CSS
+* JavaScript (Vanilla JS)
+* Browser Speech Recognition API
 
-### Step 3 — Deploy on Vercel
-1. Go to https://vercel.com → **Add New Project**
-2. Import your GitHub repo
-3. Click **Deploy** (default settings work)
+### Backend
 
 ### Step 4 — Add your API key
 1. In Vercel → your project → **Settings** → **Environment Variables**
@@ -51,12 +35,13 @@
 3. Click **Save**
 4. Go to **Deployments** → click **Redeploy** (top right → Redeploy)
 
-### Done!
-Your VOX instance is live at `https://your-project.vercel.app`
+### AI Integration
+
+* Groq API (`llama3-8b-8192` model)
 
 ---
 
-## Run Locally
+## Project Structure
 
 For local development, you have two options:
 
